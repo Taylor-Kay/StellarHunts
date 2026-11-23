@@ -65,10 +65,41 @@ root workspace):
 npx jest --config stellar-extensions/tests/jest.config.js
 ```
 
+## Wallet authentication
+
+`wallet/wallet-auth.integration.test.ts` wires the real backend wallet services
+(`backend/src/wallet/wallet.service.ts` and `wallet-auth.service.ts`) together
+with in-memory repositories and real ed25519 keypairs. It covers the whole
+challenge/signature/session flow without a database or a Nest application:
+
+- challenge generation and validation (including TTL clamping and invalid
+  addresses)
+- signature verification with valid, wrong-key, tampered and malformed
+  signatures
+- replay prevention, including the compare-and-set race on nonce consumption
+- wallet-session token creation, expiry and `lastSeenAt` refresh
+- wallet disconnection via single-session logout, wallet-wide revocation and
+  expired-session pruning
+
+Run it from the repository root:
+
+```bash
+npx jest --config stellar-extensions/tests/jest.config.js \
+  stellar-extensions/tests/wallet/wallet-auth.integration.test.ts
+```
+
+The suite exercises every statement, line and function of
+`wallet-auth.service.ts`. The Jest config maps the backend-only, ESM-only
+`@nestjs/typeorm` package to a decorator stub
+(`tests/stubs/nestjs-typeorm.js`) because the tests construct the services
+directly.
+
 ## Other suites
 
 - `puzzle-solution-checker.spec.ts` — Jest specs for the extension puzzle
   solution checker.
+- `wallet/wallet-auth.integration.test.ts` — wallet challenge, signature and
+  session suite described above.
 - The Jest config matches `*.test.ts` under this directory; the Vitest config
   matches `*.{test,spec}.js`, so the two runners do not pick up each other's
   files.
