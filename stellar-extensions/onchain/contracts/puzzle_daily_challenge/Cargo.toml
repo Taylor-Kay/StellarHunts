@@ -1,0 +1,18 @@
+[package]
+name = "stellar-hunts-puzzle-daily-challenge"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+publish.workspace = true
+description = "Daily challenge generation, on-chain verification, streaks, and rewards for StellarHunts"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+doctest = false
+
+[dependencies]
+soroban-sdk = { workspace = true }
+
+[dev-dependencies]
+soroban-sdk = { workspace = true, features = ["testutils"] }
