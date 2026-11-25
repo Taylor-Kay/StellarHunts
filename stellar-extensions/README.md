@@ -16,3 +16,12 @@ own tests next to the implementation.
 | `backend/src/puzzle-submission-throttle/` | Submission throttling guard and interceptor. |
 | `backend/src/puzzle-version-comparison/` | Puzzle version comparison and history. |
 | `backend/src/maintenance-mode/` | Maintenance-mode HTTP guard. |
+
+## JudeDaniel6 — Issues #931, #945, #953, #969
+
+| Issue | Description | Path |
+|-------|-------------|------|
+| #931  | Puzzle Tagging System Module | `backend/puzzle-tagging/` |
+| #945  | Game Season Management Module | `backend/game-season/` |
+| #953  | Puzzle Cache Invalidation Service | `backend/puzzle-cache/` |
+| #969  | Puzzle Referral Tracking Contract | `onchain/puzzle-referral/` |
